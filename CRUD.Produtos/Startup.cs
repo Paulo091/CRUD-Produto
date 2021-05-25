@@ -1,7 +1,9 @@
+using CRUD.Produtos.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CRUD.Produtos.Models;
 
 namespace CRUD.Produtos
 {
@@ -25,7 +28,11 @@ namespace CRUD.Produtos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDbContext<ProdutoContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("Produtos"));
+            });
+            services.AddTransient<IDefaultRepository<Models.Produtos>, ProdutoRepository<Models.Produtos>>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
