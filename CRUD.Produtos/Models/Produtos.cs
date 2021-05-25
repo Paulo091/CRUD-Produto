@@ -10,7 +10,9 @@ namespace CRUD.Produtos.Models
     {
         [Key]
         public int ProdutoId { get; set; }
+        [Required(ErrorMessage = "O campo NomeProduto é obrigatório")]
         public string NomeProduto { get; set; }
+        [Required(ErrorMessage = "O campo Preco é obrigatório")]
         public double Preco { get; set; }
     }
 }

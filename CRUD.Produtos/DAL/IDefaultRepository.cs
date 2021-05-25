@@ -12,6 +12,6 @@ namespace CRUD.Produtos.DAL
         public TEntity SelecionarPorId(int id);
         public TEntity Inserir(TEntity item);
         public TEntity Atualizar(TEntity item);
-        public TEntity Deletar(TEntity item);
+        public void Deletar(int id);
     }
 }

@@ -15,12 +15,19 @@ namespace CRUD.Produtos.DAL
         }
         public TEntity Atualizar(TEntity item)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().Update(item);
+            _context.SaveChanges();
+            return item;
         }
 
-        public TEntity Deletar(TEntity item)
+        public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            TEntity item = SelecionarPorId(id);
+            if (item is null)
+                return;
+
+            _context.Set<TEntity>().Remove(item);
+            _context.SaveChanges();
         }
 
         public TEntity Inserir(TEntity item)
@@ -32,12 +39,12 @@ namespace CRUD.Produtos.DAL
 
         public List<TEntity> ListarTodos()
         {
-            throw new NotImplementedException();
+            return _context.Set<TEntity>().ToList();
         }
 
         public TEntity SelecionarPorId(int id)
         {
-            throw new NotImplementedException();
+            return _context.Find<TEntity>(id);
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Produto = CRUD.Produtos.Models;
 
 namespace CRUD.Produtos.Controllers
 {
@@ -21,13 +22,32 @@ namespace CRUD.Produtos.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok("");
+            try
+            {
+                var produto = _repository.SelecionarPorId(id);
+
+                if (produto is null)
+                    return NotFound("Produto não encontrado");
+
+                return Ok(produto);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok("");
+            try
+            {
+                return Ok(_repository.ListarTodos());
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
@@ -46,14 +66,26 @@ namespace CRUD.Produtos.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put()
+        public IActionResult Put(Models.Produtos produtos)
         {
-            return Ok("");
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            try
+            {
+                return Ok(_repository.Atualizar(produtos));
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
 
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
+            _repository.Deletar(id);
             return NoContent();
         }
     }
