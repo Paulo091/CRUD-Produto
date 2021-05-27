@@ -31,7 +31,7 @@ namespace CRUD.Produtos
             services.AddDbContext<ProdutoContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("Produtos"));
             });
-            services.AddTransient<IDefaultRepository<Models.Produtos>, ProdutoRepository<Models.Produtos>>();
+            services.AddTransient<IDefaultRepository<Models.Produtos>, ProdutoSqlRepository<Models.Produtos>>();
             services.AddMvc();
         }
 

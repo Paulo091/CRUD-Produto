@@ -1,10 +1,6 @@
 ﻿using CRUD.Produtos.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Produto = CRUD.Produtos.Models;
 
 namespace CRUD.Produtos.Controllers
 {
@@ -14,6 +10,7 @@ namespace CRUD.Produtos.Controllers
     {
         
         private readonly IDefaultRepository<Models.Produtos> _repository;
+
         public ProdutoController(IDefaultRepository<Models.Produtos> repository)
         {
             _repository = repository;
