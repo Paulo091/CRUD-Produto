@@ -23,7 +23,7 @@ namespace CRUD.Produtos.Controllers
             {
                 var produto = _repository.SelecionarPorId(id);
 
-                if (produto is null)
+                if (produto.ProdutoId == 0)
                     return NotFound("Produto não encontrado");
 
                 return Ok(produto);
