@@ -71,7 +71,10 @@ namespace CRUD.Produtos.DAL
             TEntity obj = Activator.CreateInstance<TEntity>();
 
             using (var resultado = _conexaoSql.ExecuteReader(query))
-            {                              
+            {
+                if (resultado.Rows.Count < 1)
+                    return null;
+
                 foreach (DataRow row in resultado.Rows)
                 {
                     obj = ObterDadosItem(row);

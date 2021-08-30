@@ -23,7 +23,7 @@ namespace CRUD.Produtos.Controllers
             {
                 var produto = _repository.SelecionarPorId(id);
 
-                if (produto.ProdutoId == 0)
+                if (produto is null)
                     return NotFound("Produto não encontrado");
 
                 return Ok(produto);
@@ -82,6 +82,11 @@ namespace CRUD.Produtos.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            var produto = _repository.SelecionarPorId(id);
+
+            if (produto is null)
+                return NotFound("Produto não encontrado");
+
             _repository.Deletar(id);
             return NoContent();
         }
